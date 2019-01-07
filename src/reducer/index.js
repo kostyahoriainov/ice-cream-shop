@@ -1,9 +1,9 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux'
 
-import freezer from './freezer';
-import order from './order';
+import freezer from './freezer'
+import order from './order'
+import employees from './employees'
 
 export default combineReducers({
-    freezer,
-    order
+    freezer, order, employees
 })

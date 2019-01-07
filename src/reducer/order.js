@@ -1,35 +1,21 @@
-/* eslint-disable no-case-declarations */
-import C from '../constants';
-
-// const defaultState = [{
-//     customerName: null,
-//     createdAt: null,
-//     cone: null,
-//     scoobs: {
-
-//     },
-//     status: null
-// }]
+import C from '../constants'
 
 export default (state = [], action) => {
-    const { type, payload } = action;
-    switch(type) {
+    const {type, payload} = action;
+    switch (type) {
         case C.PLACE_ORDER:
-            const time = new Date();
-            const createdAt = payload.createdAt || time.toLocaleDateString();
-            const cone = payload.cone || true;
-            const newState = [...state];
-            newState.push({
-                customerName: payload.customerName,
-                createdAt,
-                cone,
-                scoobs: payload.scoobs,
-                status: payload.status
-            });
-            return newState
-
+            return [...state, {...payload, status: 'pending'}]
+        case C.FULLFILL_ORDER:
+            return state.map((order) => {
+                return order.id === payload ? {...order, status: 'fullfilled'} :  order;
+            })
+        case C.PAY_FOR_ORDER:
+            return state.map((order) => {
+                return order.id === payload ? {...order, status: 'paid'} :  order;
+            })
+        case C.CANCEL_ORDER:
+            return state.filter((order) => order.id !== payload)
         default:
             return state
     }
-
-} 
+}
