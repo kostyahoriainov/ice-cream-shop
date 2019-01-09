@@ -5,8 +5,6 @@ import  store from './store'
 import { fetchEmployess } from './AC';
 import App from './components/App';
 
-store.dispatch(fetchEmployess())
-
 ReactDOM.render(
     <Provider store={store}>
         <App />
